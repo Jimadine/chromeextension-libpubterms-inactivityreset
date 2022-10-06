@@ -3,6 +3,7 @@
     if (browser.indexOf('LOPAC') !== -1) var goHomeTimeOut = 30
     else if (browser.indexOf('WALKIN') !== -1) var goHomeTimeOut = 30
     else if (browser.indexOf('BORTH') !== -1) var goHomeTimeOut = 300
+    else if (browser.indexOf('CHEM') !== -1) var goHomeTimeOut = 1200
     else var goHomeTimeOut = 30
 
     chrome.idle.setDetectionInterval(goHomeTimeOut);
