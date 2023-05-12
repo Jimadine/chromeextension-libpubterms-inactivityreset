@@ -12,3 +12,5 @@ The extension can be tested either by:
 
 #### Deployment & Availability
 The extension was added to the Chrome Web Store via the [Developer Dashboard](https://chrome.google.com/webstore/devconsole). It is currently an `Unlisted` extension, meaning it's available to anyone with the URL, but isn't generally findable; this is because it is a bespoke extension that (currently) wouldn't be very useful for wider, public use. An options page may be added in future, which would make it more generic.
+
+Note that this Manifest Version 2 version of the extension doesn't have an options page, and gets its inactivity period from a custom user agent string, which must be set by whatever is launching Chrome (usually by way of `chrome.exe --user-agent '...'`). See the first six lines of `background.js`; all should then become clear. For versions of this extension with an options page, see the `ManifestV2` and `ManifestV3` branches of this repository.
