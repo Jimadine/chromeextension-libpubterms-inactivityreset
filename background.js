@@ -1,5 +1,5 @@
 (function() {
-  var resetUrl, detectionIntervalSeconds, graceSeconds, queryStateSeconds, notification
+  var detectionIntervalSeconds, graceSeconds, queryStateSeconds
 
   function setVars() {
     chrome.storage.local.get(['detection_interval', 'grace_period'], function(result) {
