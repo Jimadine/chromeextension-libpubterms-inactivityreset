@@ -1,0 +1,7 @@
+#table1 {display: table; border-spacing: 10px;}
+#table1 div {display: table-row;}
+#table1 div label {display:table-cell; padding-right:10px;}
+#table1 div input {display:table-cell;}
+#url {width: 120%}
+#status {margin: 14px 10px; font-weight: bolder;}
+#save, #reset {margin: 14px 10px;}

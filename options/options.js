@@ -31,10 +31,20 @@ function restoreOptions() {
   });
 }
 
+function resetNotify() {
+  var statusEl = document.getElementById("status");
+  statusEl.textContent = "Fields reset to defaults. Saving...";
+  setTimeout(saveOptions,4000)
+}
+
 document.addEventListener('DOMContentLoaded', (function() {
   document.getElementById("form1").addEventListener('submit', (function(event) {
     event.preventDefault();
     saveOptions()
   }));
   restoreOptions();
+  document.getElementById("form1").addEventListener('reset', (function(event) {
+    resetNotify()
+  }));
+
 }));
