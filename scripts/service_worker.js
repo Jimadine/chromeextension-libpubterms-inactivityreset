@@ -1,5 +1,5 @@
 (function() {
-    let resetUrl, detectionIntervalSeconds, graceSeconds, queryStateSeconds, notification, browser
+    let detectionIntervalSeconds, graceSeconds, queryStateSeconds, browser
 
     async function createOffscreen() {
         await chrome.offscreen.createDocument({
