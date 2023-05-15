@@ -1,7 +1,65 @@
-#table1 {display: table; border-spacing: 10px;}
-#table1 div {display: table-row;}
-#table1 div label {display:table-cell; padding-right:10px;}
-#table1 div input {display:table-cell;}
-#url {width: 120%}
-#status {margin: 14px 10px; font-weight: bolder;}
-#save, #reset {margin: 14px 10px;}
+#table1 {
+	display: table;
+	border-spacing: 10px;
+}
+
+#table1 div {
+	display: table-row;
+}
+
+#table1 div label {
+	display: table-cell;
+	padding-right: 10px;
+}
+
+#table1 div input {
+	display: table-cell;
+}
+
+#url {
+	width: 120%;
+}
+
+#status {
+	margin: 14px 10px;
+	font-weight: bolder;
+}
+
+input {
+	border-spacing: 10px;
+	box-sizing: border-box;
+	color: rgb(68, 68, 68);
+	min-height: 2em;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(191, 191, 191);
+	border-image: initial;
+	border-radius: 2px;
+	font: inherit;
+	margin: 0px;
+	padding: 3px 3px 4px;
+	outline: none;
+	width: 100%;
+}
+
+button {
+	appearance: none;
+	user-select: none;
+	background-image: linear-gradient(rgb(237, 237, 237), rgb(237, 237, 237) 38%, rgb(222, 222, 222));
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 0px, rgba(255, 255, 255, 0.75) 0px 1px 2px inset;
+	color: rgb(68, 68, 68);
+	text-shadow: rgb(240, 240, 240) 0px 1px 0px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0.25);
+	border-image: initial;
+	border-radius: 2px;
+	font: inherit;
+	outline: none;
+	min-height: 2em;
+	min-width: 4em;
+	padding-bottom: 1px;
+	padding-inline-end: 10px;
+	padding-inline-start: 10px;
+	margin: 14px 10px;
+}
