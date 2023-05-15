@@ -11,4 +11,4 @@ The extension can be tested either by:
 ![Screenshot of Inactivity Reset Chrome extension](https://lh3.googleusercontent.com/LRCgqrnpRKXh0gzKAjpmPgfFaEBdsUFmsdD_t0PqA1vVpuBGn_92Qsq8Ohso7ZX-jaEANhhUn6FAARNQOjF0mbXe=w640-h400-e365-rj-sc0x00ffffff)
 
 #### Deployment & Availability
-The extension was added to the Chrome Web Store via the [Developer Dashboard](https://chrome.google.com/webstore/devconsole). It is currently an `Unlisted` extension, meaning it's available to anyone with the URL, but isn't generally findable; this is because it is a bespoke extension that (currently) wouldn't be very useful for wider, public use. An options page may be added in future, which would make it more generic.
+The extension was added to the Chrome Web Store via the [Developer Dashboard](https://chrome.google.com/webstore/devconsole). It is currently an `Unlisted` extension, meaning it's available to anyone with the URL, but isn't generally findable; this is because it is a bespoke extension that (currently) wouldn't be very useful for wider, public use.
