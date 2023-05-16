@@ -1,8 +1,8 @@
 # chromeextension-libpubterms-inactivityreset
 
-A Chrome extension created for the University of York Library public catalogue terminals. The extension resets the browser session so that users' sessions are removed after a set period of inactivity. Browsing data is also removed.
+A Chrome extension created for the University of York Library public catalogue PCs. The extension resets the browser session so that all browsing data is removed after a set period of device inactivity and all browsing tabs are closed (leading to the closure of the parent `chrome.exe` process). It is then the responsibility of another process to relaunch the browser e.g. a script triggered by a scheduled task.
 
-Originally authored in 2015 for the Library Sunray thin clients, this version has been modified to work with newer versions of Google Chrome and Chromium, and aestheticized for Windows 10 Action Centre notifications (Dark mode).
+Originally authored in 2015 for the Library Sunray thin clients, this version has been modified to work with newer versions of Google Chrome and Chromium, and aestheticized for Windows 10 Action Centre notifications (Dark mode). Originally the tabs were closed in order to guarantee a fresh browsing session. The browsing history was also queried/stored separately, for statistical purposes,  though it's unclear whether this continued to work after we rolled out this extension, since the extension also deletes the browsing history (as is necessary in order to determine if initial user activity has occurred, to avoid unnecessary browser closures, e.g. when it's quiet and the PC is not in regular use). It would probably be possible to modify the extension to close all the existing tabs but open a new tab at the start page URL without closing the browser as part of this sequence. However, we have to have another process in place anyway, to test whether Chrome is running and if not relaunch it, because a user may close the browser themselves, which is an unavoidable and very likely scenario.
 
 #### Testing
 The extension can be tested either by:
