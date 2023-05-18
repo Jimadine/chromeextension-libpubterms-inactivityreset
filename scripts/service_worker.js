@@ -23,11 +23,20 @@ function setVars() {
     });
 }
 
+// Load the default values on extension installation
+chrome.runtime.onInstalled.addListener(() => {
+  setVars()
+})
+
+// Reload the values any time the extension first starts up
+chrome.runtime.onStartup.addListener(() => {
+  setVars()
+})
+
 // Reload the vars any time the user clicks "Save"
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-    setVars()
+  setVars()
 });
-setVars()
 
 chrome.idle.onStateChanged.addListener(function(newState) {
     if (newState == 'idle') {
