@@ -42,7 +42,7 @@ chrome.idle.onStateChanged.addListener(function(newState) {
                 let notificationId = (Math.floor(Math.random() * 1000)).toString()
                 const title = `${browser} will be reset in ${graceSeconds} seconds`
                 const options = {
-                    body: `${browser} has been inactive for ${detectionIntervalSeconds} seconds. Move the mouse or type something within ${graceSeconds} seconds to stop ${browser} quitting`,
+                    body: `Device has been inactive for ${detectionIntervalSeconds} seconds. Move the mouse or type something within ${graceSeconds} seconds to stop ${browser} quitting`,
                     icon: '../icons/1429370080_sign-out-white-48.png',
                     tag: notificationId,
                     requireInteraction: true
