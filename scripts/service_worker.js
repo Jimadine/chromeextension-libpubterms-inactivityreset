@@ -49,7 +49,7 @@ chrome.idle.onStateChanged.addListener(function(newState) {
         chrome.storage.local.get(['detection_interval', 'grace_period'], function(r) {
           detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
           graceSeconds = parseInt(r.grace_period) || 30; // Number of seconds after detectionIntervalSeconds to check for idleness
-          queryStateSeconds = detectionIntervalSeconds + graceSeconds - 3; // When graceSeconds elapses we ask "has Chrome been idle for queryStateSeconds seconds. If so then clear and reset". Also subtract three seconds in case of delays
+          queryStateSeconds = detectionIntervalSeconds + graceSeconds; // When graceSeconds elapses we ask "has Chrome been idle for queryStateSeconds seconds. If so then clear and reset"
           let notificationId = (Math.floor(Math.random() * 1000)).toString()
           const title = `${browser} will be reset in ${graceSeconds} seconds`
           const options = {
