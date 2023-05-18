@@ -13,12 +13,8 @@
     createOffscreen();
 
     if (navigator.userAgentData) {
-        let vendors = navigator.userAgentData.brands;
-        if (vendors.filter(e => e.brand === 'Google Chrome').length > 0) {
-            browser = 'Chrome'
-        } else {
-            browser = 'Chromium'
-        }
+      let vendors = navigator.userAgentData.brands;
+      browser = vendors.filter(e => e.brand === 'Google Chrome').length > 0 ? 'Chrome' : 'Chromium'
     }
 
     function setVars() {
