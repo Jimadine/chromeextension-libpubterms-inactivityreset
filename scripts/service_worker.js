@@ -16,13 +16,6 @@ if (navigator.userAgentData) {
     browser = vendors.filter(e => e.brand === 'Google Chrome').length > 0 ? 'Chrome' : 'Chromium'
 }
 
-function setVars() {
-    chrome.storage.local.get(['detection_interval'], function(r) {
-        detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
-        chrome.idle.setDetectionInterval(detectionIntervalSeconds);
-    });
-}
-
 // Load the default values on extension installation
 chrome.runtime.onInstalled.addListener(() => {
   setVars()
@@ -37,6 +30,13 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   setVars()
 });
+
+function setVars() {
+    chrome.storage.local.get(['detection_interval'], function(r) {
+        detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
+        chrome.idle.setDetectionInterval(detectionIntervalSeconds);
+    });
+}
 
 chrome.idle.onStateChanged.addListener(function(newState) {
     if (newState == 'idle') {
