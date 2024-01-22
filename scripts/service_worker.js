@@ -1,5 +1,9 @@
 let detectionIntervalSeconds, graceSeconds, queryStateSeconds, browser
 
+const agentString = navigator.userAgent;
+const regEx = /\sd=([0-9]{2,4}),g=([0-9]{2,4})$/;
+const suppliedByUA = agentString.match(regEx);
+
 async function createOffscreen() {
   await chrome.offscreen.createDocument({
     url: '../docs/offscreen.html',
@@ -32,6 +36,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 function setVars() {
+  if (suppliedByUA !== null) {
+    chrome.storage.local.set({'detection_interval': parseInt(suppliedByUA[1])});
+    chrome.storage.local.set({'grace_period': parseInt(suppliedByUA[2])});
+  }
   chrome.storage.local.get(['detection_interval'], function(r) {
     detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
     chrome.idle.setDetectionInterval(detectionIntervalSeconds);

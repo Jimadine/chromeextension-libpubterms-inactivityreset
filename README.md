@@ -4,6 +4,30 @@ A Chrome extension created for the University of York Library public catalogue P
 
 Originally authored in 2015 for the Library Sunray thin clients, this version has been modified to work with newer versions of Google Chrome and Chromium, and aestheticized for Windows 10 Action Centre notifications (Dark mode). Originally the tabs were closed in order to guarantee a fresh browsing session. The browsing history was also queried/stored separately, for statistical purposes,  though it's unclear whether this continued to work after we rolled out this extension, since the extension also deletes the browsing history (as is necessary in order to determine if initial user activity has occurred, to avoid unnecessary browser closures, e.g. when it's quiet and the PC is not in regular use). It would probably be possible to modify the extension to close all the existing tabs but open a new tab at the start page URL without closing the browser as part of this sequence. However, we have to have another process in place anyway, to test whether Chrome is running and if not relaunch it, because a user may close the browser themselves, which is an unavoidable and very likely scenario.
 
+#### Options
+
+The extension's options page provides two user-settable options:
+- the Detection Interval in seconds. This defines how frequently the extension checks for inactivity.
+- the Grace Period in seconds. This defines the period after notifying the user that the browser will be closed (provided no further activity).
+
+The default values for both options are 30 seconds.
+
+There is an alternative way to supply the values for the above options. You can set a custom user agent string (UAS) with the values tacked onto the end of the string in the following format:
+```
+d=X,g=Y
+```
+`d` represents `Detection Interval in seconds`, while `g` represents `Grace Period in seconds`.
+
+Here's an example of a valid UAS:
+```
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 d=45,g=50
+```
+To use this, you would need to launch Chrome with the `--user-agent` command line option, e.g.:
+```
+chrome.exe --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 d=45,g=50"
+```
+Note that if you choose to use this method of setting the options, it is highly recommended that you dynamically construct the custom UAS based on the real, current UAS of Chrome, + the values tacked onto the end. If you hard-code the entire string and use that in perpetuity, over time some web sites may falsely detect that you're using an outdated version of Chrome. Hint: on Chrome for Windows, you should be able to get the current UAS from the registry in `HKCU\Software\Google\Chrome\BLBeacon\version`.
+
 #### Testing
 The extension can be tested either by:
 - enabling `Developer mode` and loading it as an unpacked extension (via More Tools > Extensions), or
