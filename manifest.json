@@ -3,7 +3,7 @@
   "name": "Inactivity Reset",
   "author": "Jim Adamson",
   "description": "Pop up a notification and reset the browser after a defined period of inactivity",
-  "version": "0.0.0.3",
+  "version": "0.0.0.4",
   "options_ui": {
     "page": "options/options.html",
     "open_in_tab": true

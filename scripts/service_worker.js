@@ -1,8 +1,15 @@
-let detectionIntervalSeconds, graceSeconds, queryStateSeconds, browser
+let browser, detectionIntervalSeconds, graceSeconds, queryStateSeconds, suppliedByUA
 
 const agentString = navigator.userAgent;
 const regEx = /\sd=([0-9]{2,4}),g=([0-9]{2,4})$/;
-const suppliedByUA = agentString.match(regEx);
+suppliedByUA = agentString.match(regEx);
+
+if(parseInt(suppliedByUA[1]) < 15  || parseInt(suppliedByUA[1]) > 3000)  {
+  suppliedByUA = null
+}
+else if(parseInt(suppliedByUA[2]) < 15  || parseInt(suppliedByUA[2]) > 3000)  {
+  suppliedByUA = null
+}
 
 async function createOffscreen() {
   await chrome.offscreen.createDocument({

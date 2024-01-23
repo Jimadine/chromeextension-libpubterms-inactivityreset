@@ -34,11 +34,13 @@ Here's some example Powershell that can be adapted for your needs:
 [string]$options = 'd=45,g=50'
 [string]$customUAS = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + $version + ' Safari/537.36 ' + $options
 ```
-Note that very low options values — 14 seconds or less — should **not** be used for the following reasons:
-- when supplied via a custom UAS, the options values are parsed with a regular expression that assumes that both options values are between 2 and 4 digits in length, so e.g. `d=18,g=18` will match, but `d=8,g=8` will fail to match and the default values of `30/30` will be used instead.
-- the `chrome.idle.setDetectionInterval` API method requires a minimum value of `15`, so even if the regular expression matches e.g `d=14,g=14`, the extension will fail to detect inactivity and will throw an error.
+Note that when supplied via a custom UAS, very low options values — 14 seconds or less — should **not** be used for the following reasons:
+- for the Detection Interval option value, the underlying `chrome.idle.setDetectionInterval` API method requires a minimum value of `15`
+- for the Grace Period option value, for consistency, this option also requires a minimum value of `15` (though there are no underlying technical constraints on what this value could be set to)
 
-Options values set via the options page must be a minimum of `15` for both options. These limits are enforced by the HTML `min` attributes set in the page.
+The maximum values for both options are `3000` (50 minutes).
+
+Options values set via the options page have the same limits; minimum values of `15` and maximum values of `3000` for both options. These limits are enforced by the HTML `min` attributes set in the page.
 
 #### Testing
 The extension can be tested either by:
