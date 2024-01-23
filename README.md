@@ -28,6 +28,18 @@ chrome.exe --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 ```
 Note that if you choose to use this method of setting the options, it is highly recommended that you dynamically construct the custom UAS based on the real, current UAS of Chrome, + the values tacked onto the end. If you hard-code the entire string and use that in perpetuity, over time some web sites may falsely detect that you're using an outdated version of Chrome. Hint: on Chrome for Windows, you should be able to get the current UAS from the registry in `HKCU\Software\Google\Chrome\BLBeacon\version`.
 
+Here's some example Powershell that can be adapted for your needs:
+```
+[string]$version = ((Get-ItemProperty "HKCU:\Software\Google\Chrome\BLBeacon").version) -replace '(\d+\.\d+)\.\d+\.\d+', '$1.0.0'
+[string]$options = 'd=45,g=50'
+[string]$customUAS = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + $version + ' Safari/537.36 ' + $options
+```
+Note that very low options values — 14 seconds or less — should **not** be used for the following reasons:
+- when supplied via a custom UAS, the options values are parsed with a regular expression that assumes that both options values are between 2 and 4 digits in length, so e.g. `d=18,g=18` will match, but `d=8,g=8` will fail to match and the default values of `30/30` will be used instead.
+- the `chrome.idle.setDetectionInterval` API method requires a minimum value of `15`, so even if the regular expression matches e.g `d=14,g=14`, the extension will fail to detect inactivity and will throw an error.
+
+Options values set via the options page must be a minimum of `15` for both options. These limits are enforced by the HTML `min` attributes set in the page.
+
 #### Testing
 The extension can be tested either by:
 - enabling `Developer mode` and loading it as an unpacked extension (via More Tools > Extensions), or
