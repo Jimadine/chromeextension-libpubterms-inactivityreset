@@ -1,5 +1,5 @@
-let browser, detectionIntervalSeconds, graceSeconds, queryStateSeconds, suppliedByUA
-
+let browser, detectionIntervalSeconds, graceSeconds, queryStateSeconds, started, suppliedByUA;
+started = false;
 const agentString = navigator.userAgent;
 const regEx = /\sd=([0-9]{2,4}),g=([0-9]{2,4})$/;
 suppliedByUA = agentString.match(regEx);
@@ -19,35 +19,44 @@ if (navigator.userAgentData) {
 
 // Load the default values on extension installation
 chrome.runtime.onInstalled.addListener(() => {
-  setVars()
+  if (!started) {
+    getVars();
+  }
 })
 
 // Reload the values any time the extension first starts up
 chrome.runtime.onStartup.addListener(() => {
-  setVars()
+  if (!started) {
+    getVars();
+  }
 })
 
 // Reload the vars any time the user clicks "Save"
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  setVars()
+  setVars();
+  getVars();
 });
+
+function getVars() {
+  started = true;
+  chrome.storage.local.get(['detection_interval', 'grace_period'], function(r) {
+    detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
+    graceSeconds = parseInt(r.grace_period) || 30; // Number of seconds after detectionIntervalSeconds to check for idleness
+    queryStateSeconds = detectionIntervalSeconds + graceSeconds; // When graceSeconds elapses we ask "has Chrome been idle for queryStateSeconds seconds. If so then clear and reset"
+    chrome.idle.setDetectionInterval(detectionIntervalSeconds);
+  })
+}
 
 function setVars() {
   if (suppliedByUA !== null) {
     chrome.storage.local.set({ 'detection_interval': parseInt(suppliedByUA[1]) });
     chrome.storage.local.set({ 'grace_period': parseInt(suppliedByUA[2]) });
   }
-  chrome.storage.local.get(['detection_interval'], function(r) {
-    detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
-    chrome.idle.setDetectionInterval(detectionIntervalSeconds);
-  });
 }
 
-chrome.storage.local.get(['detection_interval', 'grace_period'], function(r) {
-  detectionIntervalSeconds = parseInt(r.detection_interval) || 30; // See https://developer.chrome.com/apps/idle#method-setDetectionInterval
-  graceSeconds = parseInt(r.grace_period) || 30; // Number of seconds after detectionIntervalSeconds to check for idleness
-  queryStateSeconds = detectionIntervalSeconds + graceSeconds; // When graceSeconds elapses we ask "has Chrome been idle for queryStateSeconds seconds. If so then clear and reset"
-})
+if (!started) {
+  getVars();
+}
 
 async function closeAndClear(notificationId) {
   self.registration.getNotifications()
