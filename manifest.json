@@ -1,23 +1,27 @@
 {
-	"manifest_version": 2,
-	"name": "Inactivity Reset",
-	"author": "Jim Adamson",
-	"description": "Pop up a notification and resets the browser after a minute of inactivity",
-	"version": "1.4",
-	"version_name": "LOPAC-specific version",
+  "manifest_version": 3,
+  "name": "Inactivity Reset",
+  "author": "Jim Adamson",
+  "description": "Pop up a notification and reset the browser after a defined period of inactivity",
+  "version": "0.0.0.6",
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
 	"background": {
-		"persistent": true,
-		"scripts": [ "background.js" ]
-	},
-	"minimum_chrome_version": "40",
-	"permissions": [
+    "service_worker": "scripts/service_worker.js"
+  },
+  "minimum_chrome_version": "126",
+  "permissions": [
+    "alarms",
     "browsingData",
-		"history",
+    "history",
     "idle",
-    "notifications"
-	],
-	"icons": {
-        "48": "1429370080_sign-out-black-48.png",
-        "128": "1429370057_sign-out-black-128.png"
-	}
+    "notifications",
+    "storage"
+  ],
+  "icons": {
+        "48": "icons/1429370080_sign-out-black-48.png",
+        "128": "icons/1429370057_sign-out-black-128.png"
+  }
 }

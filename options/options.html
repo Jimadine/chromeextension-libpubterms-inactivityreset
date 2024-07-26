@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="options.css" type="text/css">
+        <script src="options.js"></script>
+    </head>
+    <body>
+        <form id="form1">
+            <div id="table1">
+                <div><label title="How soon after inactivity to pop a notification">Detection interval in seconds:</label> <input id="detection_interval" type="number" step="5" min="15" max="3000" title="Min 15" required></div>
+                <div><label title="How soon after the notification pops does the browser clear browsing data then quit">Grace period in seconds:</label> <input id="grace_period" type="number" step="5" min="15" max="3000" title="Min 15" required></div>
+            </div>
+            <div id="status"></div>
+            <button id="save" type="submit">Save</button>
+            <button id="reset" type="reset">Reset</button>
+        </form>
+        <!--
+        Currently the new options_ui doesn't show the HTML5 form validation balloons (?!).
+        Use "open_in_tab": true to force the old options page to make this work.
+        Note "open_in_tab" will be deprecated at some point in the future
+        -->
+    </body>
+</html>
